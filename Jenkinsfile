@@ -1,43 +1,26 @@
 pipeline {
     agent any
-//     agent {
-//         docker {
-//             image 'maven:3-alpine'
-//             args '-v /root/.m2:/root/.m2'
-//         }
-//     }
         tools {
             maven 'maven3'
-//             docker 'dockerlatest'
         }
     stages {
-        stage('test java installation') {
+        stage('Initialize'){
+            def dockerHome = tool 'myDocker'
+             env.PATH = "${dockerHome}/bin:${env.PATH}"
+        }
+        stage('test setup') {
             steps {
                 sh 'java -version'
                 sh 'which java'
-            }
-        }
-        stage('test maven installation') {
-            steps {
                 sh 'mvn -version'
                 sh 'which mvn'
-            }
-        }
-        stage('test docker installation') {
-            steps {
                 sh 'docker --version'
                 sh 'which docker'
             }
         }
-//         stage('Initialize'){
-//             def dockerHome = tool 'docker'
-//             env.PATH = "${dockerHome}/bin:${env.PATH}"
-//         }
         stage('Build Application') {
             steps {
                 echo '=== Building Application ==='
-//                 def mvnHome = tool 'mvn'
-//                 env.PATH = "${dockerHome}/bin:${env.PATH}"
                 sh 'mvn -B -DskipTests clean package'
             }
         }
