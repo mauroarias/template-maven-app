@@ -1,7 +1,8 @@
 pipeline {
-    agent any triggers {
+    agent any
+       triggers {
         pollSCM "* * * * *"
-    }
+       }
     agent {
         docker {
             image 'maven:3-alpine'
