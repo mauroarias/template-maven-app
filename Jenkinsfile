@@ -6,7 +6,29 @@ pipeline {
 //             args '-v /root/.m2:/root/.m2'
 //         }
 //     }
+        tools {
+            jdk 'jdk8'
+            maven 'maven3'
+        }
     stages {
+        stage('test java installation') {
+            steps {
+                sh 'java -version'
+                sh 'which java'
+            }
+        }
+        stage('test maven installation') {
+            steps {
+                sh 'mvn -version'
+                sh 'which mvn'
+            }
+        }
+        stage('test docker installation') {
+            steps {
+                sh 'docker --version'
+                sh 'which docker'
+            }
+        }
         stage('Initialize'){
             def dockerHome = tool 'docker'
             env.PATH = "${dockerHome}/bin:${env.PATH}"
