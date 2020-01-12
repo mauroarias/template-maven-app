@@ -1,18 +1,20 @@
 pipeline {
-//     agent any
-//        triggers {
-//         pollSCM "* * * * *"
-//        }
-    agent {
-        docker {
-            image 'maven:3-alpine'
-            args '-v /root/.m2:/root/.m2'
-        }
-    }
+//     agent {
+//         docker {
+//             image 'maven:3-alpine'
+//             args '-v /root/.m2:/root/.m2'
+//         }
+//     }
     stages {
+        stage('Initialize'){
+            def dockerHome = tool 'docker'
+            env.PATH = "${dockerHome}/bin:${env.PATH}"
+        }
         stage('Build Application') {
             steps {
                 echo '=== Building Application ==='
+//                 def mvnHome = tool 'mvn'
+//                 env.PATH = "${dockerHome}/bin:${env.PATH}"
                 sh 'mvn -B -DskipTests clean package'
             }
         }
@@ -32,9 +34,9 @@ pipeline {
                 branch 'master'
             }
             steps {
-                echo '=== Building Petclinic Docker Image ==='
+                echo '=== Building Docker Image ==='
                 script {
-                    app = docker.build("mauroarias/maven-template")
+                    app = docker.build("mauroarias/template-maven-app")
                 }
             }
         }
