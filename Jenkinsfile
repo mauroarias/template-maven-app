@@ -7,8 +7,8 @@ pipeline {
 //         }
 //     }
         tools {
-            maven 'mvn'
-            docker 'docker'
+            Maven 'mvn'
+            Docker 'docker'
         }
     stages {
         stage('test java installation') {
@@ -29,10 +29,10 @@ pipeline {
                 sh 'which docker'
             }
         }
-        stage('Initialize'){
-            def dockerHome = tool 'docker'
-            env.PATH = "${dockerHome}/bin:${env.PATH}"
-        }
+//         stage('Initialize'){
+//             def dockerHome = tool 'docker'
+//             env.PATH = "${dockerHome}/bin:${env.PATH}"
+//         }
         stage('Build Application') {
             steps {
                 echo '=== Building Application ==='
