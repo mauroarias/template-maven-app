@@ -26,9 +26,9 @@ management:
 
 info:
   app:
-    name: template App
-    description: This is my template app
-    version: #project.version#
+    name: @project.name@
+    description: @project.description@
+    version: @project.version@
 
 logging:
   level:

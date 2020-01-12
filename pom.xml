@@ -5,7 +5,7 @@
     <packaging>jar</packaging>
     <groupId>org.mauro</groupId>
     <artifactId>template-maven-app</artifactId>
-    <version>1.0.0</version>
+    <version>1.1.1</version>
     <name>maven app with docker</name>
     <description>spring boot maven docker app</description>
 
@@ -141,6 +141,15 @@
                 </dependencies>
             </plugin>
         </plugins>
+        <resources>
+            <resource>
+                <filtering>true</filtering>
+                <directory>src/main/resources/config</directory>
+                <includes>
+                    <include>application*</include>
+                </includes>
+            </resource>
+        </resources>
     </build>
 
 </project>
