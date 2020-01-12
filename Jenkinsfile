@@ -18,7 +18,7 @@ pipeline {
         }
         stage('Test Application') {
             steps {
-                echo '=== Testing Petclinic Application ==='
+                echo '=== Testing Application ==='
                 sh 'mvn test'
             }
             post {
