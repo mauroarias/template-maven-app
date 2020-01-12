@@ -2,7 +2,6 @@ pipeline {
     agent any
         tools {
             maven 'maven3'
-            docker 'myDocker'
         }
     stages {
         stage('test setup') {
@@ -11,8 +10,6 @@ pipeline {
                 sh 'which java'
                 sh 'mvn -version'
                 sh 'which mvn'
-                sh 'docker --version'
-                sh 'which docker'
             }
         }
         stage('Build Application') {
@@ -38,9 +35,7 @@ pipeline {
             }
             steps {
                 echo '=== Building Docker Image ==='
-                script {
-                    app = docker.build("mauroarias/template-maven-app")
-                }
+                sh 'mvn fabric8:build'
             }
         }
 //         stage('Push Docker Image') {
