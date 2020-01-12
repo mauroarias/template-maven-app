@@ -7,8 +7,8 @@ pipeline {
 //         }
 //     }
         tools {
-            jdk 'jdk8'
-            maven 'maven3'
+            maven 'mvn'
+            docker 'docker'
         }
     stages {
         stage('test java installation') {
