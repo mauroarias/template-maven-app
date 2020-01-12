@@ -2,12 +2,9 @@ pipeline {
     agent any
         tools {
             maven 'maven3'
+            docker 'myDocker'
         }
     stages {
-        stage('Initialize'){
-            def dockerHome = tool 'myDocker'
-             env.PATH = "${dockerHome}/bin:${env.PATH}"
-        }
         stage('test setup') {
             steps {
                 sh 'java -version'
