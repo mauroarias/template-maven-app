@@ -3,13 +3,13 @@ pipeline {
         tools {
             maven 'maven3'
         }
-        triggers {
-            pollSCM "* * * * *"
-        }
-        options {
-            timestamps()
-            ansiColor("xterm")
-        }
+//         triggers {
+//             pollSCM "* * * * *"
+//         }
+//         options {
+//             timestamps()
+//             ansiColor("xterm")
+//         }
     stages {
         stage('test setup') {
             steps {
