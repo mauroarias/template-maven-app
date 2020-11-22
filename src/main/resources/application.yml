@@ -4,12 +4,20 @@ spring:
   jackson:
     default-property-inclusion: non_null
     property-naming-strategy: SNAKE_CASE
+  main:
+    lazy-initialization: true
+  config:
+    location: file://./src/main/resources/application.yml
+  jmx:
+    enabled: false
 
 server:
   port: 8081
   error:
     whitelabel:
       enabled: false
+
+
 
 management:
   server:
@@ -23,14 +31,12 @@ management:
     export:
       prometheus:
         enabled: true
-
+  endpoints:
+    web:
+      exposure:
+        include: health
 info:
   app:
     name: @project.name@
     description: @project.description@
     version: @project.version@
-
-logging:
-  level:
-    root: info
-    org.mauro:  debug

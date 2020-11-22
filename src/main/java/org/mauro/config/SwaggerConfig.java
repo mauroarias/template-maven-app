@@ -1,17 +1,13 @@
 package org.mauro.config;
 
+import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.info.Info;
+import org.springdoc.core.GroupedOpenApi;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import springfox.documentation.builders.ApiInfoBuilder;
-import springfox.documentation.builders.PathSelectors;
-import springfox.documentation.builders.RequestHandlerSelectors;
-import springfox.documentation.spi.DocumentationType;
-import springfox.documentation.spring.web.plugins.Docket;
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @Configuration
-@EnableSwagger2
 public class SwaggerConfig {
 
     private final String buildVersion;
@@ -27,18 +23,15 @@ public class SwaggerConfig {
     }
 
     @Bean
-    public Docket api() {
-        return new Docket(DocumentationType.SWAGGER_2)
-                .groupName("api-v1")
-                .apiInfo(new ApiInfoBuilder()
-                                 .version(buildVersion)
-                                 .title(projectName)
-                                 .description(projectDescription)
-                                 .build())
-                .useDefaultResponseMessages(false)
-                .select()
-                .apis(RequestHandlerSelectors.any())
-                .paths(PathSelectors.regex("/template/v1/.*"))
-                .build();
+    public OpenAPI api() {
+        final Info info = new Info().title(projectName).description(projectDescription).version(buildVersion);
+//        final Components components = new Components().addSecuritySchemes("basicSchema", new SecurityScheme().type(SecurityScheme.Type.HTTP).scheme("basic"));
+//        return new OpenAPI().components(components).info(info);
+        return new OpenAPI().info(info);
+    }
+
+    @Bean
+    public GroupedOpenApi groupedOpenApi() {
+        return GroupedOpenApi.builder().setGroup("v1").pathsToMatch("template/v1").build();
     }
 }
