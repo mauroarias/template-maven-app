@@ -1,23 +1,28 @@
 spring:
   application:
     name: template-app
-  jackson:
-    default-property-inclusion: non_null
-    property-naming-strategy: SNAKE_CASE
   main:
     lazy-initialization: true
   config:
     location: file://./src/main/resources/application.yml
   jmx:
     enabled: false
+  jpa:
+    hibernate:
+      ddl-auto: create
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+  datasource:
+    url: jdbc:postgresql://localhost:5432/db
+    username: user
+    password: password
+  flyway:
+    mixed: true
 
 server:
   port: 8081
   error:
     whitelabel:
       enabled: false
-
-
 
 management:
   server:
