@@ -8,7 +8,7 @@ import org.mauro.model.Company;
 public interface CompanyMapper {
     CompanyMapper MAPPER = Mappers.getMapper(CompanyMapper.class);
 
-    CompanyDao toCompanyDao(Company film);
+    CompanyDto toCompanyDto(Company company);
 
-    Company fromCompanyDao(CompanyDao filmDao);
+    Company fromCompanyDto(CompanyDto companyDto);
 }

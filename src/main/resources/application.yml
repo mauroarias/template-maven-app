@@ -8,9 +8,7 @@ spring:
   jmx:
     enabled: false
   jpa:
-    hibernate:
-      ddl-auto: create
-    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    database-platform: org.mauro.repository.JsonbPostgresDialect
   datasource:
     url: jdbc:postgresql://localhost:5432/db
     username: user
