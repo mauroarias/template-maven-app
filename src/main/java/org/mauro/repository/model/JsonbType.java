@@ -3,6 +3,7 @@ package org.mauro.repository.model;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.hibernate.HibernateException;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
+import org.hibernate.usertype.ParameterizedType;
 import org.hibernate.usertype.UserType;
 
 import java.io.ByteArrayInputStream;
@@ -16,8 +17,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
+import java.util.Properties;
 
-public class AbstractJsonbType implements UserType {
+public class JsonbType implements UserType, ParameterizedType {
+    public static final String TYPE = "type";
+
+    private Class<?> instanceType;
 
     @Override
     public int[] sqlTypes() {
@@ -26,7 +31,10 @@ public class AbstractJsonbType implements UserType {
 
     @Override
     public Class<?> returnedClass() {
-        throw new UnsupportedOperationException("this type is not supported");
+        if (instanceType == null) {
+            throw new UnsupportedOperationException("Type not supported");
+        }
+        return instanceType;
     }
 
     @Override
@@ -115,5 +123,14 @@ public class AbstractJsonbType implements UserType {
     @Override
     public Object replace(Object original, Object target, Object owner) throws HibernateException {
         return this.deepCopy(original);
+    }
+
+    @Override
+    public void setParameterValues(Properties properties) {
+        try {
+            instanceType = Class.forName(properties.getProperty(TYPE));
+        } catch (ClassNotFoundException ex) {
+            throw new UnsupportedOperationException("class not supported");
+        }
     }
 }

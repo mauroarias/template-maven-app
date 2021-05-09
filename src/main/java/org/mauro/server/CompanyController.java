@@ -32,6 +32,11 @@ public class CompanyController {
 		return new ResponseEntity<>(templateService.get(id), OK);
 	}
 
+	@GetMapping(value = "/searchByName/{name}", produces = "application/json")
+	ResponseEntity get(final String name) {
+		return new ResponseEntity<>(templateService.getByName(name), OK);
+	}
+
 	@GetMapping(produces = "application/json")
 	ResponseEntity getAll() {
 		return new ResponseEntity<>(templateService.getAll(), OK);

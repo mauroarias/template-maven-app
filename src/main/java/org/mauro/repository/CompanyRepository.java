@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import static org.mauro.repository.model.CompanyMapper.MAPPER;
 
@@ -27,6 +28,11 @@ public class CompanyRepository {
 
     public Company get(final Integer id) {
         return MAPPER.fromCompanyDto(jpaCompanyRepository.findById(id).orElseThrow(() -> new NotFoundException("company %s not found", id)).getCompany());
+    }
+
+
+    public Set<Company> getByName(final String name) {
+        return jpaCompanyRepository.findByName(name).stream().map(dao -> MAPPER.fromCompanyDto(dao.getCompany())).collect(Collectors.toSet());
     }
 
     public Set<Company> getAll() {

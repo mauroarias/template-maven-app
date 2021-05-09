@@ -27,6 +27,11 @@ public final class CompanyService {
 		return repository.get(id);
 	}
 
+	public Set<Company> getByName(final String name) {
+		log.info("get company");
+		return repository.getByName(name);
+	}
+
 	public Set<Company> getAll() {
 		log.info("get companies");
 		return repository.getAll();

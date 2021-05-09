@@ -1,8 +1,7 @@
 package org.mauro.repository.model;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Parameter;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 
@@ -13,11 +12,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import static org.mauro.repository.model.JsonbType.TYPE;
+
 @Entity
 @Table(name = "COMPANY")
-@NoArgsConstructor
-@AllArgsConstructor
-@TypeDef(name = "CompanyJsonbType", typeClass = CompanyJsonbType.class)
+@TypeDef(name = "JsonbType", typeClass = JsonbType.class)
 @Data
 public class CompanyDao {
 
@@ -27,6 +26,6 @@ public class CompanyDao {
     private Integer id;
 
     @Column(name = "data")
-    @Type(type = "CompanyJsonbType")
+    @Type(type = "JsonbType", parameters = @Parameter(name = TYPE, value = "org.mauro.repository.model.CompanyDto"))
     private CompanyDto company;
 }
