@@ -1,18 +1,20 @@
-package org.mauro.repository.model;
+package org.mauro.postgres.model;
 
 import lombok.Data;
+import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
+import org.mauro.postgres.jsonbType.JsonbType;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.util.UUID;
 
-import static org.mauro.repository.model.JsonbType.TYPE;
+import static org.mauro.postgres.jsonbType.JsonbType.TYPE;
 
 @Entity
 @Table(name = "COMPANY")
@@ -21,11 +23,12 @@ import static org.mauro.repository.model.JsonbType.TYPE;
 public class CompanyDao {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     @Column(name = "ID")
-    private Integer id;
+    private UUID id;
 
     @Column(name = "data")
-    @Type(type = "JsonbType", parameters = @Parameter(name = TYPE, value = "org.mauro.repository.model.CompanyDto"))
+    @Type(type = "JsonbType", parameters = @Parameter(name = TYPE, value = "org.mauro.postgres.model.CompanyDto"))
     private CompanyDto company;
 }

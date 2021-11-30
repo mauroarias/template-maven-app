@@ -1,4 +1,4 @@
-package org.mauro.repository;
+package org.mauro.postgres.jsonbType;
 
 import org.hibernate.dialect.PostgreSQL94Dialect;
 

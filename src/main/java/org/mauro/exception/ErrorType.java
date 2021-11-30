@@ -1,4 +1,4 @@
-package org.mauro.model.exception;
+package org.mauro.exception;
 
 import lombok.Getter;
 

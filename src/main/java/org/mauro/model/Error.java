@@ -3,7 +3,7 @@ package org.mauro.model;
 import lombok.Builder;
 import lombok.ToString;
 import lombok.Value;
-import org.mauro.model.exception.ErrorType;
+import org.mauro.exception.ErrorType;
 
 @Value
 @Builder

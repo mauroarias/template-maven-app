@@ -8,13 +8,21 @@ spring:
   jmx:
     enabled: false
   jpa:
-    database-platform: org.mauro.repository.JsonbPostgresDialect
+    database-platform: org.mauro.postgres.jsonbType.JsonbPostgresDialect
   datasource:
     url: jdbc:postgresql://localhost:5432/db
     username: user
     password: password
   flyway:
     mixed: true
+  security:
+    user:
+      name: testU
+      password: testP
+
+client:
+  cache:
+    ttlInSec: 60
 
 server:
   port: 8081

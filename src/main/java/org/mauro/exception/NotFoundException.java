@@ -1,9 +1,9 @@
-package org.mauro.model.exception;
+package org.mauro.exception;
 
 import lombok.Getter;
 
 import static java.lang.String.format;
-import static org.mauro.model.exception.ErrorType.NOT_FOUND;
+import static org.mauro.exception.ErrorType.NOT_FOUND;
 
 @Getter
 public class NotFoundException extends RuntimeException {

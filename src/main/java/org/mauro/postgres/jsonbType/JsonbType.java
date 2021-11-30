@@ -1,10 +1,11 @@
-package org.mauro.repository.model;
+package org.mauro.postgres.jsonbType;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.hibernate.HibernateException;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.usertype.ParameterizedType;
 import org.hibernate.usertype.UserType;
+import org.mauro.config.MapperConfig;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -60,7 +61,7 @@ public class JsonbType implements UserType, ParameterizedType {
             return null;
         }
         try {
-            final ObjectMapper mapper = new ObjectMapper();
+            final ObjectMapper mapper = new MapperConfig().getMapper();
             return mapper.readValue(cellContent.getBytes("UTF-8"), returnedClass());
         } catch (final Exception ex) {
             throw new RuntimeException("Failed to convert String to Invoice: " + ex.getMessage(), ex);
@@ -75,7 +76,7 @@ public class JsonbType implements UserType, ParameterizedType {
             return;
         }
         try {
-            final ObjectMapper mapper = new ObjectMapper();
+            final ObjectMapper mapper = new MapperConfig().getMapper();
             final StringWriter w = new StringWriter();
             mapper.writeValue(w, value);
             w.flush();

@@ -8,8 +8,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.constraints.Min;
+import javax.websocket.server.PathParam;
+import java.util.UUID;
+
+import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.OK;
 
 @RestController
@@ -24,27 +30,28 @@ public class CompanyController {
 
 	@PostMapping(consumes = "application/json", produces = "application/json")
 	ResponseEntity create(final @RequestBody Company company) {
-		return new ResponseEntity<>(templateService.create(company), OK);
+		return new ResponseEntity<>(templateService.create(company), CREATED);
 	}
 
 	@GetMapping(value = "/{id}", produces = "application/json")
-	ResponseEntity get(final Integer id) {
-		return new ResponseEntity<>(templateService.get(id), OK);
+	ResponseEntity get(@PathParam("id") final String id) {
+		return new ResponseEntity<>(templateService.get(UUID.fromString(id)), OK);
 	}
 
 	@GetMapping(value = "/searchByName/{name}", produces = "application/json")
-	ResponseEntity get(final String name) {
+	ResponseEntity getByName(final String name) {
 		return new ResponseEntity<>(templateService.getByName(name), OK);
 	}
 
 	@GetMapping(produces = "application/json")
-	ResponseEntity getAll() {
-		return new ResponseEntity<>(templateService.getAll(), OK);
+	ResponseEntity getAll(@RequestParam(defaultValue = "0") @Min(0) final Integer page,
+						  @RequestParam(defaultValue = "10") @Min(0)final Integer pageSize) {
+		return new ResponseEntity<>(templateService.getAll(page, pageSize), OK);
 	}
 
 	@DeleteMapping(value = "/{id}")
-	ResponseEntity create(final Integer id) {
-    	templateService.delete(id);
+	ResponseEntity delete(@PathParam("id") final String id) {
+    	templateService.delete(UUID.fromString(id));
 		return new ResponseEntity<>(OK);
 	}
 }

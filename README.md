@@ -46,3 +46,8 @@ Response example
 
 * GET http://localhost:8082/actuator
 get actuators.
+
+mvn clean package javadoc:javadoc depgraph:graph -DshowGroupIds -DshowConflicts
+sed -i 's/</\\</g; s/>/\\>/g; s/-\\>/->/g' target/maven-template.urm.dot
+dot -Tpng target/maven-template.urm.dot -o target/maven-template.urm.png
+dot -Tpng target/dependency-graph.dot -o target/dependency-graph.png

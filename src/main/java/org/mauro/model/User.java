@@ -2,11 +2,9 @@ package org.mauro.model;
 
 import lombok.Data;
 
-import java.util.Set;
-
 @Data
-public class Company {
+public class User {
     private String name;
+    private int age;
     private String address;
-    private Set<User> users;
 }

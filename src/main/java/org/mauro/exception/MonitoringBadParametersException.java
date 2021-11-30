@@ -1,9 +1,9 @@
-package org.mauro.model.exception;
+package org.mauro.exception;
 
 import lombok.Getter;
 
 import static java.lang.String.format;
-import static org.mauro.model.exception.ErrorType.BAD_ARGUMENTS;
+import static org.mauro.exception.ErrorType.BAD_ARGUMENTS;
 
 @Getter
 public final class MonitoringBadParametersException extends RuntimeException {

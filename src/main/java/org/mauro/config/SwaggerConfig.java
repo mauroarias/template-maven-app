@@ -1,7 +1,10 @@
 package org.mauro.config;
 
+import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
+import io.swagger.v3.oas.models.security.SecurityScheme;
+import org.springdoc.core.GroupedOpenApi;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,18 +27,37 @@ public class SwaggerConfig {
     @Bean
     public OpenAPI api() {
         final Info info = new Info().title(projectName).description(projectDescription).version(buildVersion);
-//        final Components components = new Components().addSecuritySchemes("basicSchema", new SecurityScheme().type(SecurityScheme.Type.HTTP).scheme("basic"));
-//        return new OpenAPI().components(components).info(info);
-        return new OpenAPI().info(info);
+        final Components components = new Components().addSecuritySchemes("basicSchema", new SecurityScheme().type(SecurityScheme.Type.HTTP).scheme("basic"));
+        return new OpenAPI().components(components).info(info);
     }
 
-//    @Bean
-//    public GroupedOpenApi groupedOpenApi() {
-//        return GroupedOpenApi.builder().setGroup("v1").pathsToMatch("template/v1").build();
-//    }
-//
-//    @Bean
-//    public GroupedOpenApi groupedOpenApiCompany() {
-//        return GroupedOpenApi.builder().setGroup("company").pathsToMatch("template/v1/company").build();
-//    }
+    @Bean
+    public GroupedOpenApi groupedOpenApi() {
+        return GroupedOpenApi.builder()
+                .group("v1")
+                .pathsToMatch("/template/v1/**")
+                .packagesToScan()
+                .build();
+    }
+
+    @Bean
+    public GroupedOpenApi groupedOpenApiCompany() {
+        return GroupedOpenApi.builder()
+                .group("company")
+                .pathsToMatch("/template/v1/company/**")
+                .build();
+    }
+
+    @Bean
+    public GroupedOpenApi groupedOpenApiUser() {
+        return GroupedOpenApi.builder()
+                .group("user")
+                .pathsToMatch("/template/v1/user/**")
+                .build();
+    }
+
+    @Bean
+    public GroupedOpenApi groupedOpenApiPing() {
+        return GroupedOpenApi.builder().group("ping").pathsToMatch("/template/v1/ping/**").packagesToScan().build();
+    }
 }
