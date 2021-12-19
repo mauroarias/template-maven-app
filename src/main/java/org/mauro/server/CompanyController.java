@@ -17,6 +17,7 @@ import java.util.UUID;
 
 import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.OK;
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
 @RequestMapping(value = "template/v1/company")
@@ -28,22 +29,22 @@ public class CompanyController {
 		this.templateService = templateService;
 	}
 
-	@PostMapping(consumes = "application/json", produces = "application/json")
+	@PostMapping(consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
 	ResponseEntity create(final @RequestBody Company company) {
 		return new ResponseEntity<>(templateService.create(company), CREATED);
 	}
 
-	@GetMapping(value = "/{id}", produces = "application/json")
+	@GetMapping(value = "/{id}", produces = APPLICATION_JSON_VALUE)
 	ResponseEntity get(@PathParam("id") final String id) {
 		return new ResponseEntity<>(templateService.get(UUID.fromString(id)), OK);
 	}
 
-	@GetMapping(value = "/searchByName/{name}", produces = "application/json")
+	@GetMapping(value = "/searchByName/{name}", produces = APPLICATION_JSON_VALUE)
 	ResponseEntity getByName(final String name) {
 		return new ResponseEntity<>(templateService.getByName(name), OK);
 	}
 
-	@GetMapping(produces = "application/json")
+	@GetMapping(produces = APPLICATION_JSON_VALUE)
 	ResponseEntity getAll(@RequestParam(defaultValue = "0") @Min(0) final Integer page,
 						  @RequestParam(defaultValue = "10") @Min(0)final Integer pageSize) {
 		return new ResponseEntity<>(templateService.getAll(page, pageSize), OK);

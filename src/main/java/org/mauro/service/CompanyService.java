@@ -2,7 +2,6 @@ package org.mauro.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.mauro.model.Company;
-import org.mauro.model.CompanyAnswer;
 import org.mauro.model.CompanyPageAnswer;
 import org.mauro.postgres.CompanyRepository;
 import org.springframework.stereotype.Service;
@@ -26,17 +25,17 @@ public final class CompanyService {
 		this.repository = repository;
 	}
 
-	public CompanyAnswer create(final Company company) {
+	public Company create(final Company company) {
 		log.info("creating company");
 		return repository.persist(company);
 	}
 
-	public CompanyAnswer get(final UUID id) {
+	public Company get(final UUID id) {
 		log.info("get company");
 		return repository.get(id);
 	}
 
-	public Set<CompanyAnswer> getByName(final String name) {
+	public Set<Company> getByName(final String name) {
 		log.info("get company");
 		return repository.getByName(name);
 	}

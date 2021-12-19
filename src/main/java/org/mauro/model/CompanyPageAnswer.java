@@ -12,7 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CompanyPageAnswer {
-    List<CompanyAnswer> companies;
+    List<Company> companies;
     int page;
     int pageSize;
     int totalPages;

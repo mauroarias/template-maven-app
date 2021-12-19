@@ -2,7 +2,6 @@ package org.mauro.postgres;
 
 import org.mauro.exception.NotFoundException;
 import org.mauro.model.Company;
-import org.mauro.model.CompanyAnswer;
 import org.mauro.model.CompanyPageAnswer;
 import org.mauro.postgres.model.CompanyDao;
 import org.springframework.data.domain.Page;
@@ -24,18 +23,18 @@ public class CompanyRepository {
         this.jpaCompanyRepository = jpaCompanyRepository;
     }
 
-    public CompanyAnswer persist(final Company company) {
+    public Company persist(final Company company) {
         final CompanyDao companyDao = new CompanyDao();
         companyDao.setCompany(MAPPER.toCompanyDto(company));
         return MAPPER.fromCompanyDto(jpaCompanyRepository.save(companyDao));
     }
 
-    public CompanyAnswer get(final UUID id) {
+    public Company get(final UUID id) {
         return MAPPER.fromCompanyDto(jpaCompanyRepository.findById(id).orElseThrow(() -> new NotFoundException("company %s not found", id)));
     }
 
 
-    public Set<CompanyAnswer> getByName(final String name) {
+    public Set<Company> getByName(final String name) {
         return jpaCompanyRepository.findByName(name).stream().map(MAPPER::fromCompanyDto).collect(Collectors.toSet());
     }
 

@@ -1,6 +1,6 @@
 package org.mauro.openfeigh;
 
-import org.mauro.model.CompanyAnswer;
+import org.mauro.model.Company;
 import org.mauro.model.CompanyPageAnswer;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.stereotype.Service;
@@ -26,7 +26,7 @@ public class UserClientService {
         return users;
     }
 
-    private List<UserClient> aggregateUser(final CompanyAnswer company) {
+    private List<UserClient> aggregateUser(final Company company) {
         if (company.getUsers() == null) {
             return new ArrayList<>();
         }

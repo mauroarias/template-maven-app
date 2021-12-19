@@ -1,7 +1,6 @@
 package org.mauro.openfeigh;
 
 import org.mauro.model.Company;
-import org.mauro.model.CompanyAnswer;
 import org.mauro.model.CompanyPageAnswer;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,8 +15,8 @@ public interface CompanyClient {
     CompanyPageAnswer getCompanies();
 
     @RequestMapping(method = RequestMethod.GET, value = "/searchByName/{name}", consumes = "application/json")
-    CompanyAnswer findCompanyByName(@PathVariable("name") final String name);
+    Company findCompanyByName(@PathVariable("name") final String name);
 
     @RequestMapping(method = RequestMethod.POST, produces = "application/json")
-    CompanyAnswer getPostById(@RequestBody final Company postId);
+    Company getPostById(@RequestBody final Company postId);
 }

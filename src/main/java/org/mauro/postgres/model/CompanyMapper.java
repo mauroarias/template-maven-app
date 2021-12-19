@@ -6,7 +6,6 @@ import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.factory.Mappers;
 import org.mauro.model.Company;
-import org.mauro.model.CompanyAnswer;
 import org.mauro.model.User;
 
 import java.time.ZonedDateTime;
@@ -26,9 +25,9 @@ public interface CompanyMapper {
     @Mapping(source = "company.address", target = "address")
     @Mapping(source = "company.created", target = "created")
     @Mapping(source = "company.users", target = "users")
-    CompanyAnswer fromCompanyDto(CompanyDao companyDao);
+    Company fromCompanyDto(CompanyDao companyDao);
 
-    CompanyAnswer.User fromUserDto(UserDto userDto);
+    User fromUserDto(UserDto userDto);
 
     @AfterMapping
     default void addCreateDateCompany(@MappingTarget CompanyDto dto) {
