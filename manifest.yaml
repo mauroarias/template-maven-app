@@ -1,0 +1,28 @@
+ci:
+  type: maven
+  version: 0.1.0
+cd:
+  type: minikube
+  version: 0.1.0
+  environtments:
+    develop:
+      resources:
+        cpu: 50m
+        couLimit: 200m
+        mem: 500mi
+        memLimit: 600mi
+      components:
+    stage:
+      resources:
+        cpu: 50m
+        couLimit: 200m
+        mem: 500mi
+        memLimit: 600mi
+      components:
+    prod:
+      resources:
+        cpu: 50m
+        couLimit: 200m
+        mem: 500mi
+        memLimit: 600mi
+      components:
