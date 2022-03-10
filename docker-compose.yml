@@ -1,0 +1,42 @@
+version: '3.3'
+services:
+  api:
+    hostname: template-app
+    domainname: template-app.com
+    build:
+      context: .
+    image: template-app
+    environment:
+      - "server.port=8090"
+      - "SPRING_PROFILES_ACTIVE=integration"
+      - "JAVA_OPTS=-Xmx263014K -Xss1M -XX:MaxDirectMemorySize=10M -XX:MaxMetaspaceSize=126953K -XX:ReservedCodeCacheSize=80M"
+      - "SPRING_CONFIG_LOCATION=/etc/cfg/"
+    volumes:
+      - ./config/integration:/etc/cfg
+    networks:
+      testvln:
+        aliases:
+          - integration-test
+
+  test:
+    image: gradle:5.4.1-jdk8
+    volumes:
+      - ./scripts:/bin/integration
+      - ../:/copy
+    command:
+      - sh
+      - -c
+      - |
+        trap 'exit 0' TERM
+
+        echo "starting test script..."
+
+        chmod +x /bin/integration/*.sh
+        exec /bin/integration/integrationTestRunner.sh
+    networks:
+      - testvln
+
+networks:
+  testvln:
+    driver: bridge
+
