@@ -1,6 +1,6 @@
 ci:
   type: maven
-  version: 0.0.1
+  version: wip-0.1.0
 cd:
   type: minikube
   version: master
