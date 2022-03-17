@@ -7,13 +7,14 @@ pwd=$(pwd)
 cd $dir
 
 move_package () {
+	packageDir=$1
 	mkdir -p temp
-	cp -rf src/$serviceName/java/org/mauro/templateapp/* temp/
-	mkdir -p src/$serviceName/java/org/mauro/$packageDir
-	cp -rf temp/* src/$serviceName/java/org/mauro/$packageDir/
-	rm -rf src/$serviceName/java/org/mauro/templateapp
+	cp -rf src/$packageDir/java/org/mauro/templateapp/* temp/
+	mkdir -p src/$packageDir/java/org/mauro/$packageDir
+	cp -rf temp/* src/$packageDir/java/org/mauro/$packageDir/
+	rm -rf src/$packageDir/java/org/mauro/templateapp
 	rm -rf temp
-	find "src/$serviceName/java/org/mauro/$packageDir" -type f -name "*.java" -exec sed -i'' -e "s/templateapp/$packageName/g" {} +
+	find "src/$$packageDir/java/org/mauro/$packageDir" -type f -name "*.java" -exec sed -i'' -e "s/templateapp/$packageName/g" {} +
 }
 
 spinal_to_upper () {
