@@ -1,35 +1,42 @@
 #!/bin/bash
 
+serviceName=$1
+dir=$2
+pwd=$(pwd)
+
+cd $dir
+
 move_package () {
 	mkdir -p temp
-	cp -rf src/$1/java/org/mauro/templateapp/* temp/
-	mkdir -p src/$1/java/org/mauro/$packageDir
-	cp -rf temp/* src/$1/java/org/mauro/$packageDir/
-	rm -rf src/$1/java/org/mauro/templateapp
+	cp -rf src/$serviceName/java/org/mauro/templateapp/* temp/
+	mkdir -p src/$serviceName/java/org/mauro/$packageDir
+	cp -rf temp/* src/$serviceName/java/org/mauro/$packageDir/
+	rm -rf src/$serviceName/java/org/mauro/templateapp
 	rm -rf temp
-	find "src/$1/java/org/mauro/$packageDir" -type f -name "*.java" -exec sed -i'' -e "s/templateapp/$packageName/g" {} +
+	find "src/$serviceName/java/org/mauro/$packageDir" -type f -name "*.java" -exec sed -i'' -e "s/templateapp/$packageName/g" {} +
 }
 
 spinal_to_upper () {
-    IFS=- read -ra str <<<"$1"
+    IFS=- read -ra str <<<"$serviceName"
     printf '%s' "${str[@]^}"
 }
 
-appName=$(echo "$1" | sed -e 's/\(.*\)/\L\1/')
+appName=$(echo "$serviceName" | sed -e 's/\(.*\)/\L\1/')
 packageName=$(echo $appName | sed -r "s/-/./g")
 packageDir=$(echo $appName | sed -e "s/-/\//g")
 mainClassName=$(spinal_to_upper $appName)
 appNameCamel=$(echo $mainClassName | sed -e 's/./\L&/')
 test=$(spinal_to_upper $appName)
 
-echo "entry $1"
+echo "entry $serviceName"
 echo "appName $appName"
 echo "packageName $packageName"
 echo "package $packageDir"
 echo "mainClassName $mainClassName"
 echo "appNameCamel $appNameCamel"
 
-cd $1
+
+cd $serviceName
 sed -i "s!template-maven-app!$appName!g" pom.xml Dockerfile README.md
 sed -i "s!templateApp!$appNameCamel!g" Dockerfile
 
@@ -42,4 +49,4 @@ sed -i "s!template-app!$appName!g" "src/main/resources/application.yml"
 
 mvn clean package
 
-cd ..
+cd $pwd
