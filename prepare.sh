@@ -1,10 +1,6 @@
 #!/bin/bash
 
 serviceName=$1
-dir=$2
-pwd=$(pwd)
-
-cd $dir
 
 move_package () {
 	package2Move=$1
@@ -36,7 +32,6 @@ echo "package $packageDir"
 echo "mainClassName $mainClassName"
 echo "appNameCamel $appNameCamel"
 
-
 cd $serviceName
 sed -i "s!template-maven-app!$appName!g" pom.xml Dockerfile README.md
 sed -i "s!templateApp!$appNameCamel!g" Dockerfile
@@ -49,5 +44,3 @@ sed -i "s/TemplateApp/${mainClassName}App/g" "src/main/java/org/mauro/$packageDi
 sed -i "s!template-app!$appName!g" "src/main/resources/application.yml"
 
 mvn clean package
-
-cd $pwd
