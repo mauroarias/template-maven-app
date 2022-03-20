@@ -32,6 +32,7 @@ echo "package $packageDir"
 echo "mainClassName $mainClassName"
 echo "appNameCamel $appNameCamel"
 
+cd $serviceName
 sed -i "s!template-maven-app!$appName!g" pom.xml Dockerfile README.md
 sed -i "s!templateApp!$appNameCamel!g" Dockerfile
 
