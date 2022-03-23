@@ -37,7 +37,7 @@ sed -i "s!templateApp!$appNameCamel!g" Dockerfile
 cd ./src
 find . -type f -exec sed -i "s!org.mauro.templateapp!org.mauro.$packageName!g" {} +
 cd ..
-sed -i "!org.mauro.templateapp!org.mauro.$packageName!g" pom.xml
+sed -i "s!org.mauro.templateapp!org.mauro.$packageName!g" pom.xml
 
 move_package test
 move_package main
