@@ -34,6 +34,10 @@ echo "appNameCamel $appNameCamel"
 
 sed -i "s!template-maven-app!$appName!g" pom.xml Dockerfile README.md
 sed -i "s!templateApp!$appNameCamel!g" Dockerfile
+cd ./src
+find . -type f -exec sed -i "s!org.mauro.templateapp!org.mauro.$packageName!g" {} +
+cd ..
+sed -i "!org.mauro.templateapp!org.mauro.$packageName!g" pom.xml
 
 move_package test
 move_package main
