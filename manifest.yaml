@@ -3,7 +3,7 @@ ci:
   version: wip-0.1.0
 cd:
   type: minikube
-  version: master
+  version: wip-0.1.0
   environtments:
     develop:
       resources:
