@@ -1,9 +1,9 @@
 ci:
   type: maven
-  version: 0.0.1
+  version: 0.1.0
 cd:
   type: minikube
-  version: master
+  version: 0.1.0
   environtments:
     develop:
       resources:
