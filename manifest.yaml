@@ -1,5 +1,6 @@
 ci:
   type: maven
+  category: java8
   version: 0.1.0
 cd:
   type: minikube
