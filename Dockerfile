@@ -1,4 +1,4 @@
-FROM openjdk:8u171-jre-slim
+FROM adoptopenjdk/openjdk11:latest
 
 COPY target/template-maven-app*.jar /usr/lib/templateApp/app.jar
 WORKDIR /usr/lib/templateApp
