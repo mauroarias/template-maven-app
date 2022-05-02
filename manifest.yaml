@@ -1,7 +1,7 @@
 ci:
   type: maven
   category: java11
-  version: 0.1.0
+  version: wip-0.2.0
 cd:
   type: minikube
   version: 0.1.0
