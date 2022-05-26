@@ -13,12 +13,6 @@ It is based on spring boot microservice with docker fabric8 pluging.
 mvn clean package
 ```
 
-## building a docker container
-
-```
-mvn clean package fabric8:build
-```
-
 ## USAGE
 
 ### Run jar
